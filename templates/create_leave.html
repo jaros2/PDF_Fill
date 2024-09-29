@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Leave Form{% endblock %}
+
+{% block content %}
+<h2>Leave Form</h2>
+<form method="POST" action="{{ url_for('leave_form') }}">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.start_date.label }} {{ form.start_date() }}
+    </div>
+    <div>
+        {{ form.end_date.label }} {{ form.end_date() }}
+    </div>
+    <div>
+        {{ form.reason.label }} {{ form.reason(size=64) }}
+    </div>
+    <div>
+        {{ form.child_id.label }} {{ form.child_id() }}
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+{% endblock %}

@@ -4,3 +4,4 @@ z15_db
 *.pdf
 venv/
 __pycache__
+data.db
