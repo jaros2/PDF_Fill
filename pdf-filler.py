@@ -46,9 +46,10 @@ def fill_pdf(pdf_data):
     can.drawString(245, 320, pdf_data["spouse_last_name"])
     can.drawString(190, 293, 'X') # czy pracuje
     can.drawString(512, 293, 'X') # system pracy zmianowej
-    can.drawString(404, 218, 'X') # czy dostal zasilek
-    # can.drawString(65, 183, 'X') # zasilek na opieke 
-    # can.drawString(190, 173, pdf_data["benefit_days_total"])
+    # can.drawString(404, 218, 'X') # czy dostal zasilek (NIE)
+    can.drawString(350, 218, 'X') # czy dostal zasilek (TAK)
+    can.drawString(65, 183, 'X') # zasilek na opieke 
+    can.drawString(190, 173, pdf_data["benefit_days_total"])
 
     can.showPage()
 
@@ -68,13 +69,13 @@ def fill_pdf(pdf_data):
     existing_pdf = PdfReader(open("Z-15A.pdf", "rb"))
     output = PdfWriter()
     # add the "watermark" (which is the new pdf) on the existing page
-    for i in  range(5):
+    for i in  range(len(new_pdf.pages)):
         page = existing_pdf.pages[i]
         page.merge_page(new_pdf.pages[i])
         output.add_page(page)
 
     # finally, write "output" to a real file
-    output_stream = open("Z-15A-filled.pdf", "wb")
+    output_stream = open("Z-15A_" + pdf_data["first_name"] + "_" + pdf_data["last_name"] + pdf_data["sign_date"] + ".pdf", "wb")
     output.write(output_stream)
     output_stream.close()
 
@@ -85,39 +86,73 @@ def write_to_squares(text_to_write, x, y, canv):
         canv.drawString(x, y, char)
         x = x + spacing
 
-        
-    
 
 moje_dane = dict(first_name='Mateusz', 
                  last_name='Jaros',
-                 pesel='84021809532',
+                 pesel='84021809532', 
                  dob='18021984',
+
                  street='Rzemieslnicza',
                  bldg_num='34',
                  apt_num='36',
                  postal_code='30-363',
                  city='Kraków',
                  phone_num='',
+
                  employer_tax_id='5220019702',
                  employer_name='GE Medical Systems Polska',
                  bank_acct='45114020040000370277130441',
-                 date_from='06.11.2023',
-                 date_to='09.11.2023',
-                 l4_num='ZK 3772689',
+
+                 date_from='02.09.2024',
+                 date_to='03.09.2024',
+                 l4_num='',
+
                  child_pesel='22291401371',
                  child_name='Filip',
                  child_last_name='Jaros',
                  child_dob='14092022',
-                 spouse_pesel='91041803482',
+
+                 spouse_pesel='91041803482', 
                  spouse_dob='18041991',
                  spouse_first_name='Karolina',
                  spouse_last_name='Jaros',
-                 spouse_received_benefit='No',
-                 benefit_days_total='',
-                 sign_date='23112023'
+                 spouse_received_benefit='Yes',
+                 benefit_days_total='8',
 
-
-
+                 sign_date='25092024'
                 )
+
+#moje_dane = dict(first_name='Mateusz', 
+#                 last_name='Jaros',
+#                 pesel='84021809532', 
+#                 dob='18021984',
+#
+#                 street='Rzemieslnicza',
+#                 bldg_num='34',
+#                 apt_num='36',
+#                 postal_code='30-363',
+#                 city='Kraków',
+#                 phone_num='',
+#
+#                 employer_tax_id='5220019702',
+#                 employer_name='GE Medical Systems Polska',
+#                 bank_acct='45114020040000370277130441',
+#
+#                 date_from='28.06.2024',
+#                 date_to='',
+#                 l4_num='',
+#                 child_pesel='22291401371',
+#                 child_name='Filip',
+#                 child_last_name='Jaros',
+#                 child_dob='14092022',
+#                 spouse_pesel='91041803482', 
+#                 spouse_dob='18041991',
+#                 spouse_first_name='Karolina',
+#                 spouse_last_name='Jaros',
+#                 spouse_received_benefit='Yes',
+#                 benefit_days_total='8',
+
+#                 sign_date='26072024'
+#                )
 
 fill_pdf(moje_dane)

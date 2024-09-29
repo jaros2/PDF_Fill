@@ -1,2 +1,6 @@
-Z-15A.pdf
+﻿Z-15A.pdf
 Z-15A-filled.pdf
+z15_db
+*.pdf
+venv/
+__pycache__
