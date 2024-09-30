@@ -4,7 +4,8 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 
 
-def fill_pdf(pdf_data):
+
+def create_pdf(pdf_data):
     packet = io.BytesIO()
 
     can = canvas.Canvas(packet, pagesize=A4)
@@ -75,9 +76,11 @@ def fill_pdf(pdf_data):
         output.add_page(page)
 
     # finally, write "output" to a real file
-    output_stream = open("Z-15A_" + pdf_data["first_name"] + "_" + pdf_data["last_name"] + pdf_data["sign_date"] + ".pdf", "wb")
+    filled_pdf_file_name = "Z-15A_" + pdf_data["first_name"] + "_" + pdf_data["last_name"] + pdf_data["sign_date"] + ".pdf"   
+    output_stream = open(filled_pdf_file_name, "wb")
     output.write(output_stream)
     output_stream.close()
+    return filled_pdf_file_name
 
 def write_to_squares(text_to_write, x, y, canv):
     spacing = 17.90
@@ -154,5 +157,3 @@ moje_dane = dict(first_name='Mateusz',
 
 #                 sign_date='26072024'
 #                )
-
-fill_pdf(moje_dane)
