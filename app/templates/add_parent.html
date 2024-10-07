@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Parent Form{% endblock %}
+
+{% block content %}
+<h2>Parent Form</h2>
+<form method="POST" action="{{ url_for('add_parent') }}">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.first_name.label }} {{ form.first_name(size=32) }}
+    </div>
+    <div>
+        {{ form.last_name.label }} {{ form.last_name(size=32) }}
+    </div>
+    <div>
+        {{ form.pesel.label }} {{ form.pesel(size=20) }}
+    </div>
+    <div>
+        {{ form.date_of_birth.label }} {{ form.date_of_birth() }}
+    </div>
+    <div>
+        {{ form.address_street.label }} {{ form.address_street(size=50) }}
+    </div>
+    <div>
+        {{ form.address_bldg_nbr.label }} {{ form.address_bldg_nbr(size=20) }}
+    </div>
+    <div>
+        {{ form.address_apt_nbr.label }} {{ form.address_apt_nbr(size=20) }}
+    </div>
+    <div>
+        {{ form.address_postal_code.label }} {{ form.address_postal_code(size=20) }}
+    </div>
+    <div>
+        {{ form.address_city.label }} {{ form.address_city(size=20) }}
+    </div>
+    <div>
+        {{ form.phone_nbr.label }} {{ form.phone_nbr(size=20) }}
+    </div>
+    <div>
+        {{ form.employer_tax_id.label }} {{ form.employer_tax_id(size=20) }}
+    </div>
+    <div>
+        {{ form.employer_name.label }} {{ form.employer_name(size=20) }}
+    </div>
+    <div>
+        {{ form.bank_account.label }} {{ form.bank_account(size=20) }}
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+{% endblock %}

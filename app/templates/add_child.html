@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Child Form{% endblock %}
+
+{% block content %}
+<h2>Child Form</h2>
+<form method="POST" action="{{ url_for('add_child') }}">
+    {{ form.hidden_tag() }}
+    <div>
+        {{ form.first_name.label }} {{ form.first_name(size=32) }}
+    </div>
+    <div>
+        {{ form.last_name.label }} {{ form.last_name(size=32) }}
+    </div>
+    <div>
+        {{ form.date_of_birth.label }} {{ form.date_of_birth() }}
+    </div>
+    
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+{% endblock %}
