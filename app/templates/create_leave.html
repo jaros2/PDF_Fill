@@ -4,17 +4,15 @@
 
 {% block content %}
 <h2>Leave Form</h2>
-<form method="POST" action="{{ url_for('leave_form') }}">
+<form method="POST" action="{{ url_for('create_leave') }}">
     {{ form.hidden_tag() }}
     <div>
-        {{ form.start_date.label }} {{ form.start_date() }}
+        {{ form.date_from.label }} {{ form.date_from() }}
     </div>
     <div>
-        {{ form.end_date.label }} {{ form.end_date() }}
+        {{ form.date_to.label }} {{ form.date_to() }}
     </div>
-    <div>
-        {{ form.reason.label }} {{ form.reason(size=64) }}
-    </div>
+    
     <div>
         {{ form.child_id.label }} {{ form.child_id() }}
     </div>

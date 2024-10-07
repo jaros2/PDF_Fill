@@ -3,7 +3,7 @@ import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 
-def create_pdf(pdf_data):
+def fill_pdf(pdf_data):
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=A4)
 
@@ -81,7 +81,7 @@ def fill_fourth_page(can, pdf_data):
 
 def merge_with_existing_pdf(packet, pdf_data):
     new_pdf = PdfReader(packet)
-    existing_pdf = PdfReader(open("Z-15A.pdf", "rb"))
+    existing_pdf = PdfReader(open("/static/Z-15A.pdf", "rb"))
     output = PdfWriter()
 
     for i in range(len(new_pdf.pages)):
