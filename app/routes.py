@@ -31,6 +31,11 @@ def add_child():
 @app.route('/create_leave', methods=['GET', 'POST'])
 def create_leave():
     form = LeaveForm()
+
+    form.main_parent_id.choices = [(parent.id, f"{parent.first_name} {parent.last_name}") for parent in Parent.query.all()]
+    form.child_id.choices = [(child.id, f"{child.first_name} {child.last_name}") for child in Child.query.all()]
+    form.spouse_id.choices = [(parent.id, f"{parent.first_name} {parent.last_name}") for parent in Parent.query.all()]  # If using
+
     if request.method == 'POST' and form.validate():
         leave = Leave(**form.data)
         db.session.add(leave)
@@ -65,8 +70,8 @@ def create_leave():
             'spouse_dob': spouse.date_of_birth.strftime('%d.%m.%Y'),
             'spouse_first_name': spouse.first_name,
             'spouse_last_name': spouse.last_name,
-            'spouse_received_benefit': 'Yes' if form.spouse_days_taken.data > 0 else 'No',
-            'benefit_days_total': form.spouse_days_taken.data,
+            'spouse_received_benefit': 'Yes' if spouse.total_days_as_main_parent > 0 else 'No',
+            'benefit_days_total': spouse.total_days_as_main_parent,
             'sign_date': form.sign_date.data.strftime('%d.%m.%Y')
         }
 

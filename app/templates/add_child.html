@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Child Form</h2>
 <form method="POST" action="{{ url_for('add_child') }}">
-    {{ form.hidden_tag() }}
+    
     <div>
         {{ form.first_name.label }} {{ form.first_name(size=32) }}
     </div>

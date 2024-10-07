@@ -5,7 +5,17 @@
 {% block content %}
 <h2>Leave Form</h2>
 <form method="POST" action="{{ url_for('create_leave') }}">
-    {{ form.hidden_tag() }}
+    
+    <div>
+        {{ form.main_parent_id.label }} {{ form.main_parent_id(class="form-control") }}
+    </div>
+    <div>
+        {{ form.child_id.label }} {{ form.child_id(class="form-control") }}
+    </div>
+    <div>
+        {{ form.spouse_id.label }} {{ form.spouse_id(class="form-control") }}
+    </div>
+    
     <div>
         {{ form.date_from.label }} {{ form.date_from() }}
     </div>
@@ -13,6 +23,10 @@
         {{ form.date_to.label }} {{ form.date_to() }}
     </div>
     
+    <div>
+        {{ form.sign_date.label }} {{ form.sign_date() }}
+    </div>
+
     <div>
         {{ form.child_id.label }} {{ form.child_id() }}
     </div>

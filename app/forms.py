@@ -16,21 +16,22 @@ class ParentForm(FlaskForm):
     employer_tax_id = StringField('Employer Tax ID', validators=[DataRequired()])
     employer_name = StringField('Employer Name', validators=[DataRequired()])
     bank_account = StringField('Bank Account Number', validators=[DataRequired()])
-    submit = SubmitField('Add Parent')
+    #submit = SubmitField('Add Parent')
 
 class ChildForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     date_of_birth = DateField('Date of Birth', format='%Y-%m-%d', validators=[DataRequired()])
     pesel = StringField('PESEL', validators=[DataRequired()])
-    submit = SubmitField('Add Child')
+    #submit = SubmitField('Add Child')
 
 class LeaveForm(FlaskForm):
     date_from = DateField('Date From', format='%Y-%m-%d', validators=[DataRequired()])
     date_to = DateField('Date To', format='%Y-%m-%d', validators=[DataRequired()])
+    total_days = IntegerField('Total Days', validators=[DataRequired()])
     l4_num = StringField('L4 Number')
     main_parent_id = SelectField('Main Parent', coerce=int, validators=[DataRequired()])
     spouse_id = SelectField('Spouse', coerce=int)
     child_id = SelectField('Child', coerce=int, validators=[DataRequired()])
     sign_date = DateField('Sign Date', format='%Y-%m-%d', validators=[DataRequired()])
-    submit = SubmitField('Create Leave')
+    #submit = SubmitField('Create Leave')

@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Parent Form</h2>
 <form method="POST" action="{{ url_for('add_parent') }}">
-    {{ form.hidden_tag() }}
+    
     <div>
         {{ form.first_name.label }} {{ form.first_name(size=32) }}
     </div>
@@ -31,19 +31,19 @@
         {{ form.address_postal_code.label }} {{ form.address_postal_code(size=20) }}
     </div>
     <div>
-        {{ form.address_city.label }} {{ form.address_city(size=20) }}
+        {{ form.address_city.label }} {{ form.address_city(size=50) }}
     </div>
     <div>
         {{ form.phone_nbr.label }} {{ form.phone_nbr(size=20) }}
     </div>
     <div>
-        {{ form.employer_tax_id.label }} {{ form.employer_tax_id(size=20) }}
+        {{ form.employer_tax_id.label }} {{ form.employer_tax_id(size=50) }}
     </div>
     <div>
-        {{ form.employer_name.label }} {{ form.employer_name(size=20) }}
+        {{ form.employer_name.label }} {{ form.employer_name(size=50) }}
     </div>
     <div>
-        {{ form.bank_account.label }} {{ form.bank_account(size=20) }}
+        {{ form.bank_account.label }} {{ form.bank_account(size=50) }}
     </div>
     <div>
         <button type="submit">Submit</button>
