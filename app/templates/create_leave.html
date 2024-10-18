@@ -5,7 +5,10 @@
 {% block content %}
 <h2>Leave Form</h2>
 <form method="POST" action="{{ url_for('create_leave') }}">
-    
+
+    <div>
+        {{ form.hidden_tag() }} 
+    </div>
     <div>
         {{ form.main_parent_id.label }} {{ form.main_parent_id(class="form-control") }}
     </div>
@@ -28,8 +31,9 @@
     </div>
 
     <div>
-        {{ form.child_id.label }} {{ form.child_id() }}
+        {{ form.total_days.label }} {{ form.total_days() }}
     </div>
+
     <div>
         <button type="submit">Submit</button>
     </div>

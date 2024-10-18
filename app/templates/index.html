@@ -3,12 +3,11 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h2>Welcome to the Child Care Leave Management App</h2>
-<p>This application helps you manage child care leave efficiently. You can:</p>
+
 <ul>
-    <li><a href="{{ url_for('add_parent') }}">Submit Parent Information</a></li>
-    <li><a href="{{ url_for('add_child') }}">Submit Child Information</a></li>
-    <li><a href="{{ url_for('create_leave') }}">Apply for Child Care Leave</a></li>
+    <li><a href="{{ url_for('add_parent') }}">Dodaj rodzica</a></li>
+    <li><a href="{{ url_for('add_child') }}">Dodaj dzieciaka</a></li>
+    <li><a href="{{ url_for('create_leave') }}">Wypełnij Z15A</a></li>
 </ul>
-<p>Navigate through the menu to start managing your leaves effectively.</p>
+
 {% endblock %}

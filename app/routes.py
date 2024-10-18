@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, flash
 from app import app, db
 from app.models import Parent, Child, Leave
 from app.forms import ParentForm, ChildForm, LeaveForm
@@ -6,26 +6,70 @@ from app.fill_pdf import fill_pdf
 
 @app.route('/')
 def index():
+    parent_exists = Parent.query.first() is not None
+    if not parent_exists:
+        # Redirect to the add_parent route if no parents exist
+        flash('W bazie danych nie ma rodzica.')
+        return redirect(url_for('add_parent'))
+
+    child_exists = Child.query.first() is not None
+    if not child_exists:
+        # Redirect to the add_parent route if no parents exist
+        flash('W bazie danych nie ma dziecka.')
+        return redirect(url_for('add_child'))
+    
+    # Continue rendering index if parents exist
     return render_template('index.html')
 
 @app.route('/add_parent', methods=['GET', 'POST'])
 def add_parent():
     form = ParentForm()
     if form.validate_on_submit():
-        parent = Parent(**form.data)
-        db.session.add(parent)
-        db.session.commit()
-        return redirect(url_for('add_child'))
+        parent_data = {key: value for key, value in form.data.items() if key in ['first_name', 
+                                                                                 'last_name', 
+                                                                                 'pesel', 
+                                                                                 'date_of_birth', 
+                                                                                 'address_street', 
+                                                                                 'address_bldg_nbr', 
+                                                                                 'address_apt_nbr', 
+                                                                                 'address_postal_code', 
+                                                                                 'address_city', 
+                                                                                 'phone_nbr', 
+                                                                                 'employer_tax_id',
+                                                                                 'employer_name',
+                                                                                 'bank_account']}
+        parent = Parent(**parent_data)
+        try:
+            db.session.add(parent)
+            db.session.commit()
+            flash('Dodano rodzica.')
+            return redirect(url_for('index'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Wystąpił błąd {e}', 'danger')
+    else:
+        flash(form.errors)
+        print(form.errors)  # Print out validation errors
+
     return render_template('add_parent.html', form=form)
 
 @app.route('/add_child', methods=['GET', 'POST'])
 def add_child():
     form = ChildForm()
     if form.validate_on_submit():
-        child = Child(**form.data)
-        db.session.add(child)
-        db.session.commit()
-        return redirect(url_for('index'))
+        child_data = {key: value for key, value in form.data.items() if key not in ['csrf_token']}
+        child = Child(**child_data)
+        try:
+            db.session.add(child)
+            db.session.commit()
+            flash('Dodano dziecko.')
+            return redirect(url_for('index'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Wystąpił błąd {e}', 'danger')
+    else:
+        flash(form.errors)
+        print(form.errors)  # Print out validation errors
     return render_template('add_child.html', form=form)
 
 @app.route('/create_leave', methods=['GET', 'POST'])
@@ -37,7 +81,8 @@ def create_leave():
     form.spouse_id.choices = [(parent.id, f"{parent.first_name} {parent.last_name}") for parent in Parent.query.all()]  # If using
 
     if request.method == 'POST' and form.validate():
-        leave = Leave(**form.data)
+        leave_data = {key: value for key, value in form.data.items() if key not in ['csrf_token']}
+        leave = Leave(**leave_data)
         db.session.add(leave)
         db.session.commit()
         

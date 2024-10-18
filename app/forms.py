@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, IntegerField, SubmitField, SelectField
 from wtforms.validators import DataRequired
+import datetime
+ 
 
 class ParentForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired()])
@@ -33,5 +35,5 @@ class LeaveForm(FlaskForm):
     main_parent_id = SelectField('Main Parent', coerce=int, validators=[DataRequired()])
     spouse_id = SelectField('Spouse', coerce=int)
     child_id = SelectField('Child', coerce=int, validators=[DataRequired()])
-    sign_date = DateField('Sign Date', format='%Y-%m-%d', validators=[DataRequired()])
+    sign_date = DateField('Sign Date', default=datetime.date.today, format='%Y-%m-%d', validators=[DataRequired()])
     #submit = SubmitField('Create Leave')

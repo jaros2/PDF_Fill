@@ -5,3 +5,5 @@ z15_db
 venv/
 __pycache__
 data.db
+*.db
+

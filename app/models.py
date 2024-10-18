@@ -26,7 +26,7 @@ class Parent(db.Model):
     def total_days_as_main_parent(self):
         current_year = datetime.now().year
         return sum(
-            leave.total_days
+            Leave.total_days
             for leave in self.leaves_as_main
             if leave.date_from.year == current_year
         )
@@ -49,7 +49,7 @@ class Leave(db.Model):
     main_parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
     spouse_id = db.Column(db.Integer, db.ForeignKey('parents.id'))
     spouse_days_taken = db.Column(db.Integer, nullable=True)
-    spouse_received_benefits = db.Column(db.String(3), nullable=False)
+    spouse_received_benefits = db.Column(db.String(3), nullable=True)
     sign_date = db.Column(db.Date, nullable=False)
     total_days = db.Column(db.Integer, nullable=False)
 

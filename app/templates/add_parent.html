@@ -7,6 +7,9 @@
 <form method="POST" action="{{ url_for('add_parent') }}">
     
     <div>
+        {{ form.hidden_tag() }} 
+    </div>
+    <div>
         {{ form.first_name.label }} {{ form.first_name(size=32) }}
     </div>
     <div>

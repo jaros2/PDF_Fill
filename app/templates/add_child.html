@@ -7,6 +7,9 @@
 <form method="POST" action="{{ url_for('add_child') }}">
     
     <div>
+        {{ form.hidden_tag() }} 
+    </div>
+    <div>
         {{ form.first_name.label }} {{ form.first_name(size=32) }}
     </div>
     <div>
@@ -14,6 +17,9 @@
     </div>
     <div>
         {{ form.date_of_birth.label }} {{ form.date_of_birth() }}
+    </div>
+    <div>
+        {{ form.pesel.label }} {{ form.pesel() }}
     </div>
     
     <div>
