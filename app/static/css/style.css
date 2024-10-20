@@ -1,0 +1,17 @@
+main {
+    padding: 100px
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    margin-top: .7em;
+  }
+
+nav a {
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+}

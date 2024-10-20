@@ -2,32 +2,37 @@ from PyPDF2 import PdfWriter, PdfReader
 import io
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
+import os
+from flask import current_app
 
 def fill_pdf(pdf_data):
     packet = io.BytesIO()
     can = canvas.Canvas(packet, pagesize=A4)
 
-    # Fill first page
+    # strona 1
     fill_first_page(can, pdf_data)
     can.showPage()
 
-    # Fill second page
+    # strona 2
     fill_second_page(can, pdf_data)
     can.showPage()
 
-    # Fill third page
+    # strona 3
     fill_third_page(can, pdf_data)
     can.showPage()
 
-    # Fill fourth page
+    # strona 4 (nie wypelniana)
+    can.showPage()
+
+    # strona 5
     fill_fourth_page(can, pdf_data)
     can.showPage()
 
-    # Finalize the canvas
+    # zakonczenie wpisywania 
     can.save()
     packet.seek(0)
 
-    # Merge the new PDF with the existing PDF
+    # polacz nowy pdf z istniejacym
     filled_pdf_file_name = merge_with_existing_pdf(packet, pdf_data)
     return filled_pdf_file_name
 
@@ -72,7 +77,7 @@ def fill_third_page(can, pdf_data):
     # can.drawString(404, 218, 'X') # czy dostal zasilek (NIE)
     can.drawString(350, 218, 'X')  # czy dostal zasilek (TAK)
     can.drawString(65, 183, 'X')  # zasilek na opieke
-    can.drawString(190, 173, pdf_data["benefit_days_total"])
+    can.drawString(190, 173, str(pdf_data["benefit_days_total"]))
 
 
 def fill_fourth_page(can, pdf_data):
@@ -81,17 +86,20 @@ def fill_fourth_page(can, pdf_data):
 
 def merge_with_existing_pdf(packet, pdf_data):
     new_pdf = PdfReader(packet)
-    existing_pdf = PdfReader(open("/static/Z-15A.pdf", "rb"))
-    output = PdfWriter()
+    existing_pdf_path = os.path.join(current_app.root_path, 'static', 'Z-15A.pdf')
+    with open(existing_pdf_path, "rb") as pdf_file:
+        existing_pdf = PdfReader(pdf_file)
+        output = PdfWriter()
 
-    for i in range(len(new_pdf.pages)):
-        page = existing_pdf.pages[i]
-        page.merge_page(new_pdf.pages[i])
-        output.add_page(page)
+        for i in range(len(new_pdf.pages)):
+            page = existing_pdf.pages[i]
+            page.merge_page(new_pdf.pages[i])
+            output.add_page(page)
 
-    filled_pdf_file_name = f"Z-15A_{pdf_data['first_name']}_{pdf_data['last_name']}_{pdf_data['sign_date']}.pdf"
-    with open(filled_pdf_file_name, "wb") as output_stream:
-        output.write(output_stream)
+        filled_pdf_file_name = f"Z-15A_{pdf_data['first_name']}_{pdf_data['last_name']}_{pdf_data['sign_date']}.pdf"
+        filled_pdf_file_name_path = os.path.join(current_app.root_path, 'static', filled_pdf_file_name)
+        with open(filled_pdf_file_name_path, "wb") as output_stream:
+            output.write(output_stream)
 
     return filled_pdf_file_name
 

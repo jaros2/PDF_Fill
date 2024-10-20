@@ -94,7 +94,7 @@ def create_leave():
             'first_name': parent.first_name,
             'last_name': parent.last_name,
             'pesel': parent.pesel,
-            'dob': parent.date_of_birth.strftime('%d.%m.%Y'),
+            'dob': parent.date_of_birth.strftime('%d%m%Y'),
             'street': parent.address_street,
             'bldg_num': parent.address_bldg_nbr,
             'apt_num': parent.address_apt_nbr,
@@ -112,7 +112,7 @@ def create_leave():
             'child_last_name': child.last_name,
             'child_dob': child.date_of_birth.strftime('%d.%m.%Y'),
             'spouse_pesel': spouse.pesel,
-            'spouse_dob': spouse.date_of_birth.strftime('%d.%m.%Y'),
+            'spouse_dob': spouse.date_of_birth.strftime('%d%m%Y'),
             'spouse_first_name': spouse.first_name,
             'spouse_last_name': spouse.last_name,
             'spouse_received_benefit': 'Yes' if spouse.total_days_as_main_parent > 0 else 'No',
@@ -121,5 +121,6 @@ def create_leave():
         }
 
         pdf_path = fill_pdf(pdf_dict)  # Assuming this function returns the path to the filled PDF
+        pdf_path = '/static/' + pdf_path
         return redirect(pdf_path)
     return render_template('create_leave.html', form=form)

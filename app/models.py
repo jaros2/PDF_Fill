@@ -46,6 +46,7 @@ class Leave(db.Model):
     date_from = db.Column(db.Date, nullable=False)
     date_to = db.Column(db.Date, nullable=False)
     l4_num = db.Column(db.String(50))
+    child_id = db.Column(db.Integer, db.ForeignKey('children.id'), nullable=False)
     main_parent_id = db.Column(db.Integer, db.ForeignKey('parents.id'), nullable=False)
     spouse_id = db.Column(db.Integer, db.ForeignKey('parents.id'))
     spouse_days_taken = db.Column(db.Integer, nullable=True)
