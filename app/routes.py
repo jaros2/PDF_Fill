@@ -117,7 +117,7 @@ def create_leave():
             'spouse_last_name': spouse.last_name,
             'spouse_received_benefit': 'Yes' if spouse.total_days_as_main_parent > 0 else 'No',
             'benefit_days_total': spouse.total_days_as_main_parent,
-            'sign_date': form.sign_date.data.strftime('%d.%m.%Y')
+            'sign_date': form.sign_date.data.strftime('%d%m%Y')
         }
 
         pdf_path = fill_pdf(pdf_dict)  # Assuming this function returns the path to the filled PDF
