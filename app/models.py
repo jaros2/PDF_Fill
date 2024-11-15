@@ -26,7 +26,7 @@ class Parent(db.Model):
     def total_days_as_main_parent(self):
         current_year = datetime.now().year
         return sum(
-            Leave.total_days
+            leave.total_days
             for leave in self.leaves_as_main
             if leave.date_from.year == current_year
         )
