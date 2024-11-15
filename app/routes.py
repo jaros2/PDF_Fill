@@ -72,6 +72,19 @@ def add_child():
         print(form.errors)  # Print out validation errors
     return render_template('add_child.html', form=form)
 
+@app.route('/leaves')
+def list_leaves():
+    leaves = Leave.query.all()  # Retrieve all leave records from the database
+    return render_template('leaves.html', leaves=leaves)  # Render the template with the leaves data
+
+@app.route('/delete_leave/<int:leave_id>', methods=['POST'])
+def delete_leave(leave_id):
+    leave = Leave.query.get(leave_id)  # Obtain the leave record by ID
+    if leave:
+        db.session.delete(leave)  # Delete the leave record
+        db.session.commit()  # Commit the changes to the database
+    return redirect(url_for('list_leaves'))  # Redirect back to the list of leaves
+
 @app.route('/create_leave', methods=['GET', 'POST'])
 def create_leave():
     form = LeaveForm()
