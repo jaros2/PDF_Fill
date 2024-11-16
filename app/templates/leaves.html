@@ -1,24 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}Leaves List{% endblock %}
+{% block title %}LLista wniosków{% endblock %}
 
 {% block head %}
     {{ super() }} <!-- Ensures that any existing styles or scripts in the base template are preserved -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='leaves.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/leaves.css') }}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Leaves List</h1>
+
+    <h2>Lista wniosków</h2>
     <table class="table mt-4">
         <thead class="thead-light">
             <tr>
                 <th>ID</th>
-                <th>Date From</th>
-                <th>Date To</th>
-                <th>Child ID</th>
-                <th>Main Parent ID</th>
-                <th>Actions</th>
+                <th>Data od/th>
+                <th>Data do</th>
+                <th>ID Dziecka</th>
+                <th>ID Rodzica</th>
+                <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -38,5 +38,5 @@
             {% endfor %}
         </tbody>
     </table>
-</div>
+
 {% endblock %}

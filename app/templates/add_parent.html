@@ -3,10 +3,10 @@
 {% block title %}Parent Form{% endblock %}
 {% block head %}
     {{ super() }} <!-- This ensures that any existing styles or scripts in the base template are preserved -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='add_parent.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='/css/add_parent.css') }}">
 {% endblock %}
 {% block content %}
-<h2>Parent Form</h2>
+<h2>Dodaj rodzica</h2>
 <form method="POST" action="{{ url_for('add_parent') }}">
     
     <div>
