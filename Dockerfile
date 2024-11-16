@@ -13,8 +13,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application
 COPY . .
 
-# Create the database
-RUN python create_database.py
+# Set environment variable for Flask
+ENV FLASK_APP=app
+
+# Create the database (using module syntax to ensure proper import resolution)
+RUN python -m flask db init || true && \
+    python -m flask db migrate || true && \
+    python -m flask db upgrade || true
 
 # Expose the port the app runs on
 EXPOSE 5000

@@ -6,11 +6,9 @@ services:
     ports:
       - "5001:5000"
     volumes:
-      - sqlite_data:/app/app/database.db
+      - ./app:/app/app
+      - ./instance:/app/instance
     environment:
       - FLASK_APP=app
-      - FLASK_ENV=production
+      - FLASK_ENV=development  # Change to production for production deployment
     restart: unless-stopped
-
-volumes:
-  sqlite_data:
