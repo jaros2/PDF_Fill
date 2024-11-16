@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 
+
 {% block title %}Leave Form{% endblock %}
+
+{% block head %}
+    {{ super() }} <!-- This ensures that any existing styles or scripts in the base template are preserved -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_leave.css') }}">
+{% endblock %}
 
 {% block content %}
 <style>

@@ -1,17 +1,47 @@
-main {
-    padding: 100px
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
 }
 
-label {
-    display: inline-block;
-    margin-bottom: .5rem;
-    margin-top: .7em;
-  }
+header {
+    background-color: #343a40;
+    padding: 20px;
+    color: white;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+nav {
+    margin-top: 10px;
+}
 
 nav a {
-    padding: 30px;
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    transition: color 0.3s ease;
 }
 
-h1 {
-    text-align: center;
+nav a:hover {
+    color: #adb5bd;
+}
+
+main {
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
