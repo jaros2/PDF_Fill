@@ -1,5 +1,3 @@
-# create_db.py
-
 from app import db, app
 
 def create_database():
