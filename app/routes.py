@@ -123,7 +123,7 @@ def create_leave():
             'child_pesel': child.pesel,
             'child_name': child.first_name,
             'child_last_name': child.last_name,
-            'child_dob': child.date_of_birth.strftime('%d.%m.%Y'),
+            'child_dob': child.date_of_birth.strftime('%d%m%Y'),
             'spouse_pesel': spouse.pesel,
             'spouse_dob': spouse.date_of_birth.strftime('%d%m%Y'),
             'spouse_first_name': spouse.first_name,
