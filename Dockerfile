@@ -21,6 +21,9 @@ RUN python -m flask db init || true && \
     python -m flask db migrate || true && \
     python -m flask db upgrade || true
 
+# Run initialization script
+RUN python create_db.py
+
 # Expose the port the app runs on
 EXPOSE 5000
 
