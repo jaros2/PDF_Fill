@@ -128,8 +128,8 @@ def create_leave():
             'spouse_dob': spouse.date_of_birth.strftime('%d%m%Y'),
             'spouse_first_name': spouse.first_name,
             'spouse_last_name': spouse.last_name,
-            'spouse_received_benefit': 'Yes' if spouse.total_days_as_main_parent > 0 else 'No',
-            'benefit_days_total': spouse.total_days_as_main_parent,
+            'spouse_received_benefit': 'Yes' if spouse.total_days_as_main_parent(form.date_from.data) > 0 else 'No',
+            'benefit_days_total': spouse.total_days_as_main_parent(form.date_from.data),
             'sign_date': form.sign_date.data.strftime('%d%m%Y')
         }
 

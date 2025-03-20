@@ -78,7 +78,7 @@ def fill_third_page(can, pdf_data):
     if (int(pdf_data["benefit_days_total"])>0):
         can.drawString(350, 218, 'X') # czy dostal zasilek (TAK)
         can.drawString(65, 183, 'X') # zasilek na opieke 
-        can.drawString(190, 173, pdf_data["benefit_days_total"])
+        can.drawString(190, 173, str(pdf_data["benefit_days_total"]))
     else:
         can.drawString(405, 218, 'X') # czy dostal zasilek (NIE)
    

@@ -22,13 +22,21 @@ class Parent(db.Model):
     # Establish relationship
     leaves_as_main = db.relationship('Leave', foreign_keys='Leave.main_parent_id', back_populates='main_parent')
 
-    @property
-    def total_days_as_main_parent(self):
+    def total_days_as_main_parent(self, date):
+        """
+        Calculate total days of leave where parent is the main parent up to the specified date.
+        
+        Args:
+            date (datetime.date): The date up to which to calculate leave days
+            
+        Returns:
+            int: Total number of leave days
+        """
         current_year = datetime.now().year
         return sum(
             leave.total_days
             for leave in self.leaves_as_main
-            if leave.date_from.year == current_year
+            if leave.date_from.year == current_year and leave.date_from <= date
         )
 
 class Child(db.Model):
