@@ -21,6 +21,56 @@ def index():
     # Continue rendering index if parents exist
     return render_template('index.html')
 
+@app.route('/parents')
+def list_parents():
+    parents = Parent.query.all()
+    return render_template('parents.html', parents=parents)
+
+@app.route('/edit_parent/<int:parent_id>', methods=['GET', 'POST'])
+def edit_parent(parent_id):
+    parent = Parent.query.get_or_404(parent_id)
+    form = ParentForm()
+    
+    if form.validate_on_submit():
+        parent.first_name = form.first_name.data
+        parent.last_name = form.last_name.data
+        parent.pesel = form.pesel.data
+        parent.date_of_birth = form.date_of_birth.data
+        parent.address_street = form.address_street.data
+        parent.address_bldg_nbr = form.address_bldg_nbr.data
+        parent.address_apt_nbr = form.address_apt_nbr.data
+        parent.address_postal_code = form.address_postal_code.data
+        parent.address_city = form.address_city.data
+        parent.phone_nbr = form.phone_nbr.data
+        parent.employer_tax_id = form.employer_tax_id.data
+        parent.employer_name = form.employer_name.data
+        parent.bank_account = form.bank_account.data
+        
+        try:
+            db.session.commit()
+            flash('Zaktualizowano dane rodzica.')
+            return redirect(url_for('list_parents'))
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Wystąpił błąd podczas aktualizacji: {e}', 'danger')
+    else:
+        # Pre-fill the form with existing data
+        form.first_name.data = parent.first_name
+        form.last_name.data = parent.last_name
+        form.pesel.data = parent.pesel
+        form.date_of_birth.data = parent.date_of_birth
+        form.address_street.data = parent.address_street
+        form.address_bldg_nbr.data = parent.address_bldg_nbr
+        form.address_apt_nbr.data = parent.address_apt_nbr
+        form.address_postal_code.data = parent.address_postal_code
+        form.address_city.data = parent.address_city
+        form.phone_nbr.data = parent.phone_nbr
+        form.employer_tax_id.data = parent.employer_tax_id
+        form.employer_name.data = parent.employer_name
+        form.bank_account.data = parent.bank_account
+        
+    return render_template('edit_parent.html', form=form, parent=parent)
+
 @app.route('/add_parent', methods=['GET', 'POST'])
 def add_parent():
     form = ParentForm()

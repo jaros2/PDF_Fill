@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Lista rodziców{% endblock %}
+
+{% block content %}
+<h2>Lista rodziców</h2>
+
+{% if parents %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>PESEL</th>
+                <th>Data urodzenia</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parent in parents %}
+            <tr>
+                <td>{{ parent.first_name }}</td>
+                <td>{{ parent.last_name }}</td>
+                <td>{{ parent.pesel }}</td>
+                <td>{{ parent.date_of_birth.strftime('%Y-%m-%d') }}</td>
+                <td>
+                    <a href="{{ url_for('edit_parent', parent_id=parent.id) }}" class="btn btn-primary">Edytuj</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Brak rodziców w bazie danych.</p>
+{% endif %}
+
+<div class="mt-3">
+    <a href="{{ url_for('add_parent') }}" class="btn btn-success">Dodaj nowego rodzica</a>
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">Powrót do strony głównej</a>
+</div>
+{% endblock %} 
